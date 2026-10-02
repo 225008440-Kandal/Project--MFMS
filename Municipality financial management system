@@ -1,0 +1,288 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+#define MAX_ACCOUNTS 100
+#define NAME_LEN 50
+#define ACC_NUM_LEN 10
+
+// Utility Rates (Constants)
+#define WATER_RATE_PER_UNIT 12.50
+#define ELEC_RATE_PER_UNIT 2.15
+#define MUNICIPAL_TAX_RATE 0.15 // 15% property tax/vat rate
+
+// Core Ratepayer Account Data Structure
+typedef struct {
+    char accountNumber[ACC_NUM_LEN];
+    char ownerName[NAME_LEN];
+    double waterUnitsUsed;
+    double electricityUnitsUsed;
+    double totalBilled;
+    double totalPaid;
+    double outstandingBalance;
+    int isActive;
+} RatepayerAccount;
+
+// Global System State
+RatepayerAccount accounts[MAX_ACCOUNTS];
+int totalAccountCount = 0;
+
+// Function Prototypes
+void displayMainMenu(void);
+void clearInputBuffer(void);
+int validateAccountNumber(const char *accNum);
+double getValidPositiveDouble(const char *prompt);
+
+// Core Modules
+void createNewAccount(void);
+void processBilling(void);
+void recordPayment(void);
+void generateFinancialReport(void);
+void searchAccount(void);
+
+int main(void) {
+    int choice = 0;
+
+    do {
+        displayMainMenu();
+        printf("Enter your choice (1-6): ");
+        if (scanf("%d", &choice) != 1) {
+            printf("\n[ERROR] Invalid input! Please enter a number.\n");
+            clearInputBuffer();
+            continue;
+        }
+        clearInputBuffer();
+
+        switch (choice) {
+            case 1:
+                createNewAccount();
+                break;
+            case 2:
+                processBilling();
+                break;
+            case 3:
+                recordPayment();
+                break;
+            case 4:
+                generateFinancialReport();
+                break;
+            case 5:
+                searchAccount();
+                break;
+            case 6:
+                printf("\nExiting Municipal Financial Management System. Goodbye!\n");
+                break;
+            default:
+                printf("\n[ERROR] Choice out of range (1-6). Try again.\n");
+        }
+    } while (choice != 6);
+
+    return 0;
+}
+
+// Clear leftover characters from stdin after scanf
+void clearInputBuffer(void) {
+    int c;
+    while ((c = getchar()) != '\n' && c != EOF);
+}
+
+// Validate that account number contains only alphanumeric characters
+int validateAccountNumber(const char *accNum) {
+    if (strlen(accNum) == 0 || strlen(accNum) >= ACC_NUM_LEN) return 0;
+    for (int i = 0; accNum[i] != '\0'; i++) {
+        if (!isalnum((unsigned char)accNum[i])) return 0;
+    }
+    return 1;
+}
+
+// Helper for robust numerical input validation
+double getValidPositiveDouble(const char *prompt) {
+    double val;
+    while (1) {
+        printf("%s", prompt);
+        if (scanf("%lf", &val) == 1 && val >= 0.0) {
+            clearInputBuffer();
+            return val;
+        }
+        printf("[ERROR] Invalid entry. Please enter a positive number.\n");
+        clearInputBuffer();
+    }
+}
+
+void displayMainMenu(void) {
+    printf("\n==================================================\n");
+    printf("   MUNICIPAL FINANCIAL MANAGEMENT SYSTEM (MFMS)   \n");
+    printf("==================================================\n");
+    printf("1. Register New Ratepayer Account\n");
+    printf("2. Process Utility Consumption & Billing\n");
+    printf("3. Record Ratepayer Payment\n");
+    printf("4. Generate Municipal Financial Report\n");
+    printf("5. Search Ratepayer Record\n");
+    printf("6. Exit System\n");
+    printf("--------------------------------------------------\n");
+}
+
+void createNewAccount(void) {
+    if (totalAccountCount >= MAX_ACCOUNTS) {
+        printf("\n[ERROR] System memory full. Cannot add more accounts.\n");
+        return;
+    }
+
+    RatepayerAccount newAcc;
+    printf("\n--- Create New Ratepayer Account ---\n");
+
+    while (1) {
+        printf("Enter Account Number (e.g., ACC101): ");
+        if (fgets(newAcc.accountNumber, sizeof(newAcc.accountNumber), stdin)) {
+            newAcc.accountNumber[strcspn(newAcc.accountNumber, "\n")] = '\0';
+            if (validateAccountNumber(newAcc.accountNumber)) break;
+        }
+        printf("[ERROR] Account number must be alphanumeric (max 9 chars).\n");
+    }
+
+    printf("Enter Ratepayer Full Name: ");
+    if (fgets(newAcc.ownerName, sizeof(newAcc.ownerName), stdin)) {
+        newAcc.ownerName[strcspn(newAcc.ownerName, "\n")] = '\0';
+    }
+
+    newAcc.waterUnitsUsed = 0.0;
+    newAcc.electricityUnitsUsed = 0.0;
+    newAcc.totalBilled = 0.0;
+    newAcc.totalPaid = 0.0;
+    newAcc.outstandingBalance = 0.0;
+    newAcc.isActive = 1;
+
+    accounts[totalAccountCount] = newAcc;
+    totalAccountCount++;
+
+    printf("\n[SUCCESS] Account '%s' registered successfully!\n", newAcc.accountNumber);
+}
+
+void processBilling(void) {
+    char targetAcc[ACC_NUM_LEN];
+    printf("\n--- Process Utility Billing ---\n");
+    printf("Enter Account Number to Bill: ");
+    if (!fgets(targetAcc, sizeof(targetAcc), stdin)) return;
+    targetAcc[strcspn(targetAcc, "\n")] = '\0';
+
+    int foundIdx = -1;
+    for (int i = 0; i < totalAccountCount; i++) {
+        if (strcmp(accounts[i].accountNumber, targetAcc) == 0 && accounts[i].isActive) {
+            foundIdx = i;
+            break;
+        }
+    }
+
+    if (foundIdx == -1) {
+        printf("\n[ERROR] Account '%s' not found.\n", targetAcc);
+        return;
+    }
+
+    double waterUnits = getValidPositiveDouble("Enter Water Units Consumed (kl): ");
+    double elecUnits = getValidPositiveDouble("Enter Electricity Units Consumed (kWh): ");
+
+    double waterCost = waterUnits * WATER_RATE_PER_UNIT;
+    double elecCost = elecUnits * ELEC_RATE_PER_UNIT;
+    double subtotal = waterCost + elecCost;
+    double taxAmount = subtotal * MUNICIPAL_TAX_RATE;
+    double grossCharge = subtotal + taxAmount;
+
+    accounts[foundIdx].waterUnitsUsed += waterUnits;
+    accounts[foundIdx].electricityUnitsUsed += elecUnits;
+    accounts[foundIdx].totalBilled += grossCharge;
+    accounts[foundIdx].outstandingBalance += grossCharge;
+
+    printf("\n--- BILL GENERATED FOR %s --- \n", accounts[foundIdx].accountNumber);
+    printf("Water Charge:         $%.2f\n", waterCost);
+    printf("Electricity Charge:   $%.2f\n", elecCost);
+    printf("Municipal Tax (15%%):  $%.2f\n", taxAmount);
+    printf("Gross Added Charge:   $%.2f\n", grossCharge);
+    printf("New Total Balance:    $%.2f\n", accounts[foundIdx].outstandingBalance);
+}
+
+void recordPayment(void) {
+    char targetAcc[ACC_NUM_LEN];
+    printf("\n--- Record Payment ---\n");
+    printf("Enter Account Number: ");
+    if (!fgets(targetAcc, sizeof(targetAcc), stdin)) return;
+    targetAcc[strcspn(targetAcc, "\n")] = '\0';
+
+    int foundIdx = -1;
+    for (int i = 0; i < totalAccountCount; i++) {
+        if (strcmp(accounts[i].accountNumber, targetAcc) == 0) {
+            foundIdx = i;
+            break;
+        }
+    }
+
+    if (foundIdx == -1) {
+        printf("\n[ERROR] Account '%s' not found.\n", targetAcc);
+        return;
+    }
+
+    printf("Current Outstanding Balance: $%.2f\n", accounts[foundIdx].outstandingBalance);
+    double payment = getValidPositiveDouble("Enter Payment Amount: $");
+
+    accounts[foundIdx].totalPaid += payment;
+    accounts[foundIdx].outstandingBalance -= payment;
+
+    printf("\n[SUCCESS] Payment recorded.");
+    printf("\nRemaining Balance for %s: $%.2f\n", 
+           accounts[foundIdx].accountNumber, 
+           accounts[foundIdx].outstandingBalance);
+}
+
+void generateFinancialReport(void) {
+    printf("\n==================================================================================\n");
+    printf("                          MUNICIPAL FINANCIAL SUMMARY REPORT                      \n");
+    printf("==================================================================================\n");
+    printf("%-12s | %-20s | %-12s | %-12s | %-12s\n", 
+           "Acc Number", "Owner Name", "Total Billed", "Total Paid", "Balance Due");
+    printf("----------------------------------------------------------------------------------\n");
+
+    double grandBilled = 0.0, grandPaid = 0.0, grandBalance = 0.0;
+
+    for (int i = 0; i < totalAccountCount; i++) {
+        printf("%-12s | %-20s | $%-11.2f | $%-11.2f | $%-11.2f\n",
+               accounts[i].accountNumber,
+               accounts[i].ownerName,
+               accounts[i].totalBilled,
+               accounts[i].totalPaid,
+               accounts[i].outstandingBalance);
+
+        grandBilled += accounts[i].totalBilled;
+        grandPaid += accounts[i].totalPaid;
+        grandBalance += accounts[i].outstandingBalance;
+    }
+
+    printf("----------------------------------------------------------------------------------\n");
+    printf("GRAND TOTALS (%d Accounts):\n", totalAccountCount);
+    printf("Total Billed:    $%.2f\n", grandBilled);
+    printf("Total Collected: $%.2f\n", grandPaid);
+    printf("Total Outstanding Revenue: $%.2f\n", grandBalance);
+    printf("==================================================================================\n");
+}
+
+void searchAccount(void) {
+    char targetAcc[ACC_NUM_LEN];
+    printf("\n--- Search Account Details ---\n");
+    printf("Enter Account Number: ");
+    if (!fgets(targetAcc, sizeof(targetAcc), stdin)) return;
+    targetAcc[strcspn(targetAcc, "\n")] = '\0';
+
+    for (int i = 0; i < totalAccountCount; i++) {
+        if (strcmp(accounts[i].accountNumber, targetAcc) == 0) {
+            printf("\nAccount Details Found:");
+            printf("\nAccount Number:     %s", accounts[i].accountNumber);
+            printf("\nOwner Name:         %s", accounts[i].ownerName);
+            printf("\nWater Consumption:  %.2f kl", accounts[i].waterUnitsUsed);
+            printf("\nElec Consumption:   %.2f kWh", accounts[i].electricityUnitsUsed);
+            printf("\nTotal Billed:       $%.2f", accounts[i].totalBilled);
+            printf("\nTotal Paid:         $%.2f", accounts[i].totalPaid);
+            printf("\nBalance Outstanding:$%.2f\n", accounts[i].outstandingBalance);
+            return;
+        }
+    }
+    printf("\n[INFO] No record found matching '%s'.\n", targetAcc);
+}
