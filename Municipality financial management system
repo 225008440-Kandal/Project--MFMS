@@ -111,9 +111,9 @@ double getValidPositiveDouble(const char *prompt) {
 }
 
 void displayMainMenu(void) {
-    printf("\n==================================================\n");
+    printf("\n-----------------------------------------------\n");
     printf("   MUNICIPAL FINANCIAL MANAGEMENT SYSTEM (MFMS)   \n");
-    printf("==================================================\n");
+    printf("-----------------------------------------------\n");
     printf("1. Register New Ratepayer Account\n");
     printf("2. Process Utility Consumption & Billing\n");
     printf("3. Record Ratepayer Payment\n");
@@ -234,9 +234,9 @@ void recordPayment(void) {
 }
 
 void generateFinancialReport(void) {
-    printf("\n==================================================================================\n");
+    printf("\n------------------------------------------------------------------------------\n");
     printf("                          MUNICIPAL FINANCIAL SUMMARY REPORT                      \n");
-    printf("==================================================================================\n");
+    printf("------------------------------------------------------------------------------\n");
     printf("%-12s | %-20s | %-12s | %-12s | %-12s\n", 
            "Acc Number", "Owner Name", "Total Billed", "Total Paid", "Balance Due");
     printf("----------------------------------------------------------------------------------\n");
@@ -261,7 +261,7 @@ void generateFinancialReport(void) {
     printf("Total Billed:    $%.2f\n", grandBilled);
     printf("Total Collected: $%.2f\n", grandPaid);
     printf("Total Outstanding Revenue: $%.2f\n", grandBalance);
-    printf("==================================================================================\n");
+    printf("------------------------------------------------------------------------------\n");
 }
 
 void searchAccount(void) {
