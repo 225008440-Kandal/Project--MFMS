@@ -50,5 +50,9 @@ void displayAbout(void)
 
 void displayExit(void)
 {
-    /* TODO: print a short goodbye message with the system name */
+    printf("\n==========================================\n");
+    printf("  Thank you for using the Municipal\n");
+    printf("  Financial Management System.\n");
+    printf("  Goodbye!\n");
+    printf("==========================================\n");
 }
