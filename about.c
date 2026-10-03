@@ -17,7 +17,7 @@ static char members[MEMBERS][MAX_NAME] = {
     "Student 4 - Asset Management",
     "Student 5 - Reports",
     "Student 6 - Integration and Validation",
-    "Student 7 - About module, Testing and Git"
+    "Franz Moussiessi 226141861 - About module, Testing and Git"
     /* TODO: replace these with the real names and student numbers */
 };
 
