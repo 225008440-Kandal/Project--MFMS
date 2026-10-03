@@ -32,8 +32,12 @@ void displayAbout(void)
 {
     int i;
 
-    /* TODO: print the system name, group number and a short
-       description of what the system does */
+    printf("\n========== ABOUT / HELP ==========\n");
+    printf("Municipal Financial Management System\n");
+    printf("PAP521S - Project A - Group x\n");
+    printf("A console program that manages employees, budgets,\n");
+    printf("suppliers and assets of a municipality, and\n");
+    printf("produces summary reports.\n");
 
     printf("\nGroup members and responsibilities:\n");
     /* A for loop over the array - one line per member. */
