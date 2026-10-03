@@ -31,6 +31,7 @@ void displayWelcome(void)
 void displayAbout(void)
 {
     int i;
+    int longest = 0;
 
     printf("\n========== ABOUT / HELP ==========\n");
     printf("Municipal Financial Management System\n");
@@ -54,8 +55,13 @@ void displayAbout(void)
     printf("  6. About     - show this help screen\n");
     printf("  7. Exit      - close the program\n");
 
-    /* TODO (optional, shows strlen): print how many members there are
-       and the length of the longest name */
+    for (i = 0; i < MEMBERS; i++) {
+        if ((int)strlen(members[i]) > longest) {
+            longest = (int)strlen(members[i]);
+        }
+    }
+    printf("\nTotal members: %d\n", MEMBERS);
+    printf("Longest member entry: %d characters\n", longest);
 }
 
 void displayExit(void)
