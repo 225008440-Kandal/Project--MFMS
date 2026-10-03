@@ -45,8 +45,14 @@ void displayAbout(void)
         printf("  %d. %s\n", i + 1, members[i]);
     }
 
-    /* TODO: print one line per module explaining what it does,
-       so a new user knows what each menu option is for */
+    printf("\nWhat each menu option does:\n");
+    printf("  1. Employees - add, view and search employee records\n");
+    printf("  2. Budget    - manage department budgets\n");
+    printf("  3. Suppliers - manage supplier records\n");
+    printf("  4. Assets    - manage municipal assets\n");
+    printf("  5. Reports   - show summary reports\n");
+    printf("  6. About     - show this help screen\n");
+    printf("  7. Exit      - close the program\n");
 
     /* TODO (optional, shows strlen): print how many members there are
        and the length of the longest name */
