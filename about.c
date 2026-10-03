@@ -23,15 +23,11 @@ static char members[MEMBERS][MAX_NAME] = {
 
 void displayWelcome(void)
 {
-    /* TODO: print a banner box with the system name.
-       Suggestion:
-       ==========================================
-         MUNICIPAL FINANCIAL MANAGEMENT SYSTEM
-         PAP521S - Project A - Group <number>
-       ==========================================
-       Use \n for line breaks. */
+    printf("\n==========================================\n");
+    printf("  MUNICIPAL FINANCIAL MANAGEMENT SYSTEM\n");
+    printf("  PAP521S - Project A - Group  x\n");
+    printf("==========================================\n\n");
 }
-
 void displayAbout(void)
 {
     int i;
