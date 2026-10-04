@@ -6,10 +6,7 @@
 #define MEMBERS 7
 #define MAX_NAME 60
 
-/* An array of strings holding the group members.
-   Using an array plus a loop here (instead of seven printf lines)
-   is what demonstrates arrays and loops in your own code -
-   be ready to explain that choice to the lecturer. */
+/* Group members, one string per member */
 static char members[MEMBERS][MAX_NAME] = {
     "Student 1 - Employee Management",
     "Student 2 - Budget Management",
@@ -18,7 +15,6 @@ static char members[MEMBERS][MAX_NAME] = {
     "Student 5 - Reports",
     "Student 6 - Integration and Validation",
     "Franz Moussiessi 226141861 - About module, Testing and Git"
-    /* TODO: replace these with the real names and student numbers */
 };
 
 void displayWelcome(void)
