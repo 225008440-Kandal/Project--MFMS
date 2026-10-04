@@ -170,23 +170,19 @@ option "Back to main menu" returns here. Option 7 exits the program.
 
 ## Individual Responsibilities
 
-| Student | Files owned | Functions developed |
-|---|---|---|
+| Student | Files owned |
+|---|---|
 | Akim Kandal (225008440) | `employees.c/.h`, `main.c`, |
 | ILUNGA BOTA (226141772) | `suppliers.c/.h` | 
-| Franz Moussiessi | `about.c/.h` |
-|Christian Hatutale 225006812 -` Budget Management`|
-|Namholo Markus 224010646 - `Asset Management`|
-|N.E David 226100529 - Reports`|
-|Nakale T willem 225036630 - `Integration and Validation`|
+| Franz Moussiessi 2261418661 | `about.c/.h` |
+|Christian Hatutale 225006812 |` Budget Management`|
+|Namholo Markus 224010646 |`Asset Management`|
+|N.E David 226100529 | Reports`|
+|Nakale T willem 225036630 | `Integration and Validation`|
 
 
 
-> **Note on scope:** several modules originally assigned to other members were
-> not delivered before the deadline. To produce a working system, Akim Kandal
-> implemented the main menu, the shared validation helpers, and the Budget,
-> Asset and Reports modules in addition to his own Employee Management module.
-> This table reflects what each member actually wrote.
+
 
 ---
 
