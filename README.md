@@ -10,11 +10,11 @@ Namibia University of Science and Technology
 
 | # | Student Name | Student Number | Responsibility |
 |---|---|---|---|
-| 1 | Akim Kandal | 225008440 | Employee Management, Main Menu, Shared Validation, Budget, Assets, Reports |
+| 1 | Akim Kandal | 225008440 | Employee Management |
 | 2 | ILUNGA BOTA | 226141772 | Supplier Management |
 | 3 | Franz Moussiessi | 226141861 | About / Help module, Testing |
-| 4 |  Namholo Markus| 224010646 | Prototype billing module |
-| 5 | Nakale T Willem | 225036630 |  | Integration and Validation
+| 4 |  Namholo Markus| 224010646 |  Asset Management |
+| 5 | Nakale T Willem | 225036630 | Integration and Validation|
 | 6 | Christian Hatutale | 225006812 |  Budget Management |
 | 7 | N.E David | 226100529 | Reports |
 
@@ -172,10 +172,17 @@ option "Back to main menu" returns here. Option 7 exits the program.
 
 | Student | Files owned | Functions developed |
 |---|---|---|
-| Akim Kandal (225008440) | `employees.c/.h`, `main.c`, `utils.c/.h`, `budget.c/.h`, `assets.c/.h`, `reports.c/.h` | `employeeMenu`, `addEmployee`, `displayEmployees`, `searchEmployee`, `salarySummary`, `calculateGross`, `calculateNet`, `main`, `displayMainMenu`, `readInt`, `readMoney`, `readText`, `printHeading`, `budgetMenu`, `addBudget`, `displayBudgets`, `searchBudget`, `displayOverBudget`, `calculateRemaining`, `assetMenu`, `addAsset`, `displayAssets`, `searchAsset`, `displayTotalValue`, `displayByDepartment`, `reportsMenu`, `employeeReport`, `budgetReport`, `supplierReport`, `assetReport`, `fullReport` |
+| Akim Kandal (225008440) | `employees.c/.h`, `main.c`, |
 | ILUNGA BOTA (226141772) | `suppliers.c/.h` | `supplierMenu`, supplier add / display / search, `getSupplierCount`, `getSupplierName`, `getSupplierTown` |
 | Franz Moussiessi | `about.c/.h` | `displayWelcome`, `displayAbout`, `displayExit` |
-| [NAME] (224010646) | standalone billing prototype | `createNewAccount`, `processBilling`, `recordPayment`, `generateFinancialReport`, `searchAccount` |
+| Namholo Markus (224010646) | standalone billing prototype | `createNewAccount`, `processBilling`, `recordPayment`, `generateFinancialReport`, `searchAccount` |
+|Christian Hatutale 225006812 -` Budget Management`|
+|Ilunga Bota 226141772 -   `Supplier Management`|
+|Namholo Markus 224010646 - `Asset Management`|
+|N.E David 226100529 - Reports`|
+|Nakale T willem 225036630 - `Integration and Validation`|
+|Franz Moussiessi 226141861 - `About module, Testing and Git`|
+
 
 > **Note on scope:** several modules originally assigned to other members were
 > not delivered before the deadline. To produce a working system, Akim Kandal
