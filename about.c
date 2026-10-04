@@ -8,12 +8,12 @@
 
 /* Group members, one string per member */
 static char members[MEMBERS][MAX_NAME] = {
-    "Student 1 - Employee Management",
-    "Student 2 - Budget Management",
-    "Student 3 - Supplier Management",
-    "Student 4 - Asset Management",
-    "Student 5 - Reports",
-    "Student 6 - Integration and Validation",
+    "Kandal Muzemb 225008440 - Employee Management",
+    " Christian Hatutale 225006812 - Budget Management",
+    "Ilunga Bota 226141772 - Supplier Management",
+    "Namholo Markus 224010646 - Asset Management",
+    "N.E David 226100529 - Reports",
+    "Nakale T willem 225036630 - Integration and Validation",
     "Franz Moussiessi 226141861 - About module, Testing and Git"
 };
 
