@@ -173,15 +173,13 @@ option "Back to main menu" returns here. Option 7 exits the program.
 | Student | Files owned | Functions developed |
 |---|---|---|
 | Akim Kandal (225008440) | `employees.c/.h`, `main.c`, |
-| ILUNGA BOTA (226141772) | `suppliers.c/.h` | `supplierMenu`, supplier add / display / search, `getSupplierCount`, `getSupplierName`, `getSupplierTown` |
-| Franz Moussiessi | `about.c/.h` | `displayWelcome`, `displayAbout`, `displayExit` |
-| Namholo Markus (224010646) | standalone billing prototype | `createNewAccount`, `processBilling`, `recordPayment`, `generateFinancialReport`, `searchAccount` |
+| ILUNGA BOTA (226141772) | `suppliers.c/.h` | 
+| Franz Moussiessi | `about.c/.h` |
 |Christian Hatutale 225006812 -` Budget Management`|
-|Ilunga Bota 226141772 -   `Supplier Management`|
 |Namholo Markus 224010646 - `Asset Management`|
 |N.E David 226100529 - Reports`|
 |Nakale T willem 225036630 - `Integration and Validation`|
-|Franz Moussiessi 226141861 - `About module, Testing and Git`|
+
 
 
 > **Note on scope:** several modules originally assigned to other members were
