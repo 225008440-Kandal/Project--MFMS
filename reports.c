@@ -5,6 +5,7 @@
 #include "budget.h"
 #include "suppliers.h"
 #include "assets.h"
+#include "utils.h"
 
 
 // Employee report
@@ -54,8 +55,9 @@ static void employeeReport(void)
 
     average = total / n;
 
-    printf("EMPLOYEE REPORT\n");
+    printf("\n--- EMPLOYEE REPORT ---\n");
     printf("Total Employees: %d\n", n);
+    printf("Total Payroll: %.2f\n", total);
     printf("Average Salary: %.2f\n", average);
     printf("Highest Salary: %.2f\n", highest);
     printf("Lowest Salary: %.2f\n", lowest);
@@ -167,6 +169,17 @@ static void assetReport(void)
 }
 
 
+static void fullReport(void)
+{
+    printf("\n--- FULL MUNICIPAL REPORT ---\n");
+
+    employeeReport();
+    budgetReport();
+    supplierReport();
+    assetReport();
+}
+
+
 // Menu
 
 void reportsMenu(void)
@@ -182,10 +195,10 @@ void reportsMenu(void)
         printf("2. Budget Report\n");
         printf("3. Supplier Report\n");
         printf("4. Asset Report\n");
-        printf("5. Back\n");
-        printf("Enter your choice: ");
+        printf("5. Full Municipal Report\n");
+        printf("6. Back\n");
 
-        scanf("%d", &choice);
+        choice = readInt("Enter your choice: ", 1, 6);
 
         switch (choice)
         {
@@ -206,6 +219,10 @@ void reportsMenu(void)
                 break;
 
             case 5:
+                fullReport();
+                break;
+
+            case 6:
                 printf("Returning to main menu...\n");
                 break;
 
@@ -213,5 +230,5 @@ void reportsMenu(void)
                 printf("Invalid choice. Please try again.\n");
         }
 
-    } while (choice != 5);
+    } while (choice != 6);
 }
